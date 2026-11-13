@@ -1,29 +1,139 @@
-.welcomeVideo {
-  overflow: hidden;
-  padding: 1em;
-  color: "[theme:bodyText, default: #323130]";
-  color: var(--bodyText);
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(0, 0, 0, 0.78);
 }
 
-.welcome {
-  text-align: center;
+.modal {
+  position: relative;
+  width: min(900px, 95vw);
+  max-height: 92vh;
+  overflow: auto;
+  border: 3px solid #f5d000;
+  border-radius: 6px;
+  background: #050505;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.8);
 }
 
-.welcomeImage {
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 58px;
+  padding: 12px 18px;
+  color: #000000;
+  background: #f5d000;
+}
+
+.title {
+  margin: 0;
+  padding-right: 12px;
+  font-family: "Segoe UI", Arial, sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.closeButton {
+  flex: 0 0 auto;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 2px solid #000000;
+  border-radius: 50%;
+  color: #000000;
+  background: transparent;
+  font-size: 28px;
+  line-height: 28px;
+  cursor: pointer;
+}
+
+.closeButton:hover,
+.closeButton:focus {
+  color: #f5d000;
+  background: #000000;
+}
+
+.content {
+  padding: 18px;
+}
+
+.video {
+  display: block;
   width: 100%;
-  max-width: 420px;
+  max-height: 75vh;
+  border: 1px solid #444444;
+  background: #000000;
 }
 
-.links {
-  a {
-    text-decoration: none;
-    color: "[theme:link, default:#03787c]";
-    color: var(--link); // note: CSS Custom Properties support is limited to modern browsers only
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-top: 16px;
+}
 
-    &:hover {
-      text-decoration: underline;
-      color: "[theme:linkHovered, default: #014446]";
-      color: var(--linkHovered); // note: CSS Custom Properties support is limited to modern browsers only
-    }
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #ffffff;
+  font-family: "Segoe UI", Arial, sans-serif;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.checkboxLabel input {
+  width: 17px;
+  height: 17px;
+  accent-color: #f5d000;
+  cursor: pointer;
+}
+
+.dismissButton {
+  min-width: 90px;
+  padding: 9px 16px;
+  border: 2px solid #f5d000;
+  border-radius: 4px;
+  color: #000000;
+  background: #f5d000;
+  font-family: "Segoe UI", Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.dismissButton:hover,
+.dismissButton:focus {
+  color: #f5d000;
+  background: #000000;
+}
+
+@media (max-width: 600px) {
+  .overlay {
+    padding: 10px;
+  }
+
+  .content {
+    padding: 10px;
+  }
+
+  .footer {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .dismissButton {
+    width: 100%;
+  }
+
+  .title {
+    font-size: 20px;
   }
 }

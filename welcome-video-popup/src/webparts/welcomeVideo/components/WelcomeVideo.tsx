@@ -1,44 +1,110 @@
 import * as React from 'react';
+import { useState } from 'react';
 import styles from './WelcomeVideo.module.scss';
-import type { IWelcomeVideoProps } from './IWelcomeVideoProps';
-import { escape } from '@microsoft/sp-lodash-subset';
-import welcomeDark from '../assets/welcome-dark.png';
-import welcomeLight from '../assets/welcome-light.png';
+import { IWelcomeVideoProps } from './IWelcomeVideoProps';
 
-export default class WelcomeVideo extends React.Component<IWelcomeVideoProps> {
-  public render(): React.ReactElement<IWelcomeVideoProps> {
-    const {
-      description,
-      isDarkTheme,
-      environmentMessage,
-      userDisplayName
-    } = this.props;
+const WelcomeVideo: React.FC<IWelcomeVideoProps> = ({
+  videoUrl,
+  notificationId
+}) => {
+  const storageKey: string =
+    `welcome-video-dismissed-${notificationId}`;
 
-    return (
-      <section className={`${styles.welcomeVideo}`}>
-        <div className={styles.welcome}>
-          <img alt="" src={isDarkTheme ? welcomeDark : welcomeLight} className={styles.welcomeImage} />
-          <h2>Well done, {escape(userDisplayName)}!</h2>
-          <div>{environmentMessage}</div>
-          <div>Web part property value: <strong>{escape(description)}</strong></div>
+  const [isOpen, setIsOpen] = useState<boolean>(() => {
+    try {
+      return window.localStorage.getItem(storageKey) !== 'true';
+    } catch {
+      return true;
+    }
+  });
+
+  const [doNotShowAgain, setDoNotShowAgain] =
+    useState<boolean>(false);
+
+  const closeVideo = (): void => {
+    if (doNotShowAgain) {
+      try {
+        window.localStorage.setItem(storageKey, 'true');
+      } catch {
+        // The video will still close for the current page session.
+      }
+    }
+
+    setIsOpen(false);
+  };
+
+  if (!isOpen) {
+    return null;
+  }
+
+  return (
+    <div
+      className={styles.overlay}
+      role="presentation"
+    >
+      <section
+        className={styles.modal}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="welcome-video-title"
+      >
+        <div className={styles.header}>
+          <h2
+            id="welcome-video-title"
+            className={styles.title}
+          >
+            Welcome Video
+          </h2>
+
+          <button
+            type="button"
+            className={styles.closeButton}
+            aria-label="Close welcome video"
+            onClick={closeVideo}
+          >
+            ×
+          </button>
         </div>
-        <div>
-          <h3>Welcome to SharePoint Framework!</h3>
-          <p>
-            The SharePoint Framework (SPFx) is a extensibility model for Microsoft Viva, Microsoft Teams and SharePoint. It&#39;s the easiest way to extend Microsoft 365 with automatic Single Sign On, automatic hosting and industry standard tooling.
-          </p>
-          <h4>Learn more about SPFx development:</h4>
-          <ul className={styles.links}>
-            <li><a href="https://aka.ms/spfx" target="_blank" rel="noreferrer">SharePoint Framework Overview</a></li>
-            <li><a href="https://aka.ms/spfx-yeoman-graph" target="_blank" rel="noreferrer">Use Microsoft Graph in your solution</a></li>
-            <li><a href="https://aka.ms/spfx-yeoman-teams" target="_blank" rel="noreferrer">Build for Microsoft Teams using SharePoint Framework</a></li>
-            <li><a href="https://aka.ms/spfx-yeoman-viva" target="_blank" rel="noreferrer">Build for Microsoft Viva Connections using SharePoint Framework</a></li>
-            <li><a href="https://aka.ms/spfx-yeoman-store" target="_blank" rel="noreferrer">Publish SharePoint Framework applications to the marketplace</a></li>
-            <li><a href="https://aka.ms/spfx-yeoman-api" target="_blank" rel="noreferrer">SharePoint Framework API reference</a></li>
-            <li><a href="https://aka.ms/m365pnp" target="_blank" rel="noreferrer">Microsoft 365 Developer Community</a></li>
-          </ul>
+
+        <div className={styles.content}>
+          <video
+            className={styles.video}
+            src={videoUrl}
+            autoPlay
+            muted
+            controls
+            playsInline
+          />
+
+          <div className={styles.footer}>
+            <label className={styles.checkboxLabel}>
+              <input
+                type="checkbox"
+                checked={doNotShowAgain}
+                onChange={(
+                  event: React.ChangeEvent<HTMLInputElement>
+                ) => {
+                  setDoNotShowAgain(event.target.checked);
+                }}
+              />
+
+              <span>
+                Don’t show this video again
+              </span>
+            </label>
+
+            <button
+              type="button"
+              className={styles.dismissButton}
+              onClick={closeVideo}
+            >
+              Close
+            </button>
+          </div>
         </div>
       </section>
-    );
-  }
-}
+    </div>
+  );
+};
+
+export default WelcomeVideo;
