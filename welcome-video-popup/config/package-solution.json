@@ -1,0 +1,39 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "welcome-video-popup-client-side-solution",
+    "id": "1ace952b-71d6-4720-a643-acd4f85bec03",
+    "version": "2.0.0.0",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true,
+    "developer": {
+      "name": "",
+      "websiteUrl": "",
+      "privacyUrl": "",
+      "termsOfUseUrl": "",
+      "mpnId": "Undefined-1.24.1"
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "welcome-video-popup description"
+      },
+      "longDescription": {
+        "default": "welcome-video-popup description"
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "features": [
+      {
+        "title": "welcome-video-popup Feature",
+        "description": "The feature that activates elements of the welcome-video-popup solution.",
+        "id": "c9952fef-964c-45bd-9362-44144db1c51f",
+        "version": "2.0.0.0"
+      }
+    ]
+  },
+  "paths": {
+    "zippedPackage": "solution/welcome-video-popup.sppkg"
+  }
+}

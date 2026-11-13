@@ -1,0 +1,18 @@
+{
+  "@microsoft/generator-sharepoint": {
+    "useGulp": false,
+    "plusBeta": false,
+    "isCreatingSolution": true,
+    "nodeVersion": "24.22.2",
+    "sdksVersions": {},
+    "version": "1.24.1",
+    "libraryName": "welcome-video-popup",
+    "libraryId": "1ace952b-71d6-4720-a643-acd4f85bec03",
+    "environment": "spo",
+    "packageManager": "npm",
+    "solutionName": "welcome-video-popup",
+    "solutionShortDescription": "welcome-video-popup description",
+    "skipFeatureDeployment": true,
+    "componentType": "webpart"
+  }
+}

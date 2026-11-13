@@ -1,0 +1,18 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "welcome-video-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/welcomeVideo/WelcomeVideoWebPart.js",
+          "manifest": "./src/webparts/welcomeVideo/WelcomeVideoWebPart.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "WelcomeVideoWebPartStrings": "lib/webparts/welcomeVideo/loc/{locale}.js"
+  }
+}
